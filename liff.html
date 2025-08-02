@@ -14,15 +14,20 @@ liff.init({          // ← https:// は付けない
   liffId: '2007865582-nJ0DMwPM',
   withLoginOnExternalBrowser: true
 })
+
+
 /* ログインしていなければログイン */
 .then(() => {
   if (!liff.isLoggedIn()) { liff.login(); return; }
+  /* ★ここでプロファイルを返す ──*/
+  return liff.getProfile();
 })
-/* プロフィール取得（外部ブラウザでも userId が取れる）*/
-.then(() => liff.getProfile())
+/* ここには必ず profile が入ってくる ↓ */
 .then(profile => {
   const uid = profile.userId || 'unknown';
-document.getElementById('uidView').textContent = 'UID: ' + uid;
+  document.getElementById('uidView').textContent = 'UID: ' + uid;
+  …
+});
 /* ↑ 画面に赤字で UID を表示 */
 
   /* フォームを開く URL を組み立てる --------------- */
@@ -38,5 +43,6 @@ document.getElementById('uidView').textContent = 'UID: ' + uid;
 </script>
 </body>
 </html>
+
 
 
