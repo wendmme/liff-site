@@ -7,42 +7,38 @@
 </head>
 <body>
 <p>診断フォームへリダイレクト中…</p>
-<!-- ★ここを追加 -->
 <p id="uidView" style="color:red;font-weight:bold;"></p>
+
 <script>
-liff.init({          // ← https:// は付けない
-  liffId: '2007865582-nJ0DMwPM',
+liff.init({
+  liffId: '2007865582-nJ0DMwPM',            // ← LIFF ID
   withLoginOnExternalBrowser: true
 })
-
-
-/* ログインしていなければログイン */
 .then(() => {
+  /* ログインしていなければログイン */
   if (!liff.isLoggedIn()) { liff.login(); return; }
-  /* ★ここでプロファイルを返す ──*/
+  /* プロフィールを返す（ここが重要！）*/
   return liff.getProfile();
 })
-/* ここには必ず profile が入ってくる ↓ */
 .then(profile => {
   const uid = profile.userId || 'unknown';
-  document.getElementById('uidView').textContent = 'UID: ' + uid;
-  …
-});
-/* ↑ 画面に赤字で UID を表示 */
+  document.getElementById('uidView').textContent = 'UID: ' + uid;  // 画面確認用
 
-  /* フォームを開く URL を組み立てる --------------- */
-  const params  = new URLSearchParams(location.search);
-  const t       = params.get('type') || 'post';      // ?type=pre で切替
-  const formURL = 'https://docs.google.com/forms/d/e/1FAIpQLScGeCK-wnDDnM3EJ1KSlbWgr-zrdiVuasGMjRvjl1kSAuXT5w/viewform' +
-                  '&entry.357089518=' + uid +        // ← uid 列の entry 番号
-                  '&entry.1964922167=' + t;          // ← type 列の entry 番号
-  /* ------------------------------------------------ */
+  /* フォーム URL を作成（1 つ目は ?entry）*/
+  const q  = new URLSearchParams(location.search);
+  const t  = q.get('type') || 'post';   // ?type=pre で切替
+  const formURL =
+    'https://docs.google.com/forms/d/e/1FAIpQLScGeCK-wnDDnM3EJ1KSlbWgr-zrdiVuasGMjRvjl1kSAuXT5w/viewform' +
+    '?entry.357089518=' + uid +          // ★ uid 用 entry 番号
+    '&entry.1964922167=' + t;            // ★ type 用 entry 番号
 
-  location.href = formURL;        // ← フォームへジャンプ
+  location.href = formURL;               // フォームへジャンプ
 });
 </script>
 </body>
 </html>
+
+
 
 
 
