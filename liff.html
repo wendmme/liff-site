@@ -11,16 +11,19 @@
 
 <script>
 liff.init({
+  alert('① ページが読み込まれました');   // ←手順確認用
   liffId: '2007865582-nJ0DMwPM',            // ← LIFF ID
   withLoginOnExternalBrowser: true
 })
 .then(() => {
+  alert('② LOGGED IN ? ' + liff.isLoggedIn());
   /* ログインしていなければログイン */
   if (!liff.isLoggedIn()) { liff.login(); return; }
   /* プロフィールを返す（ここが重要！）*/
   return liff.getProfile();
 })
 .then(profile => {
+  alert('③ PROFILE NAME = ' + (profile.displayName || 'なし'));
   const uid = profile.userId || 'unknown';
   document.getElementById('uidView').textContent = 'UID: ' + uid;  // 画面確認用
 
@@ -42,6 +45,7 @@ liff.init({
 </script>
 </body>
 </html>
+
 
 
 
