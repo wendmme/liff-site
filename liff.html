@@ -8,8 +8,11 @@
 <body>
 <p>診断フォームへリダイレクト中…</p>
 <script>
-liff.init({ liffId: '2007865582-nJ0DMwPM' })  // ← “https://” を付けない！
+// liff.init({ liffId: '2007865582-nJ0DMwPM' })  // ← “https://” を付けない！
+// LINE 以外のブラウザでも自動ログインさせる
+liff.init({ liffId: '2007865582-nJ0DMwPM', withLoginOnExternalBrowser:true })
 .then(() => {
+  if (!liff.isLoggedIn()) { liff.login(); return; } 
   const uid = liff.getContext().userId || 'unknown';
   const params = new URLSearchParams(location.search);
   const t = params.get('type') || 'post';     // ?type=pre などで切替
@@ -24,3 +27,4 @@ liff.init({ liffId: '2007865582-nJ0DMwPM' })  // ← “https://” を付けな
 </body>
 
 </html>
+
