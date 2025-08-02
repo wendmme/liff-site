@@ -29,14 +29,20 @@ liff.init({
   const t  = q.get('type') || 'post';   // ?type=pre で切替
   const formURL =
     'https://docs.google.com/forms/d/e/1FAIpQLScGeCK-wnDDnM3EJ1KSlbWgr-zrdiVuasGMjRvjl1kSAuXT5w/viewform' +
-    '?entry.357089518=' + uid +          // ★ uid 用 entry 番号
-    '&entry.1964922167=' + t;            // ★ type 用 entry 番号
+  '?usp=pp_url' +
+  '&entry.357089518=' + uid +
+  '&entry.1964922167=' + t;
+
+    
+  //'?entry.357089518=' + uid +          // ★ uid 用 entry 番号
+    //'&entry.1964922167=' + t;            // ★ type 用 entry 番号
 
   location.href = formURL;               // フォームへジャンプ
 });
 </script>
 </body>
 </html>
+
 
 
 
