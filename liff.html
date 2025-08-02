@@ -7,7 +7,8 @@
 </head>
 <body>
 <p>診断フォームへリダイレクト中…</p>
-
+<!-- ★ここを追加 -->
+<p id="uidView" style="color:red;font-weight:bold;"></p>
 <script>
 liff.init({          // ← https:// は付けない
   liffId: '2007865582-nJ0DMwPM',
@@ -21,7 +22,8 @@ liff.init({          // ← https:// は付けない
 .then(() => liff.getProfile())
 .then(profile => {
   const uid = profile.userId || 'unknown';
-  console.log('uid=', uid);      // ←ChromeのConsoleで確認できる
+document.getElementById('uidView').textContent = 'UID: ' + uid;
+/* ↑ 画面に赤字で UID を表示 */
 
   /* フォームを開く URL を組み立てる --------------- */
   const params  = new URLSearchParams(location.search);
@@ -36,4 +38,5 @@ liff.init({          // ← https:// は付けない
 </script>
 </body>
 </html>
+
 
