@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <title>サイト診断 LIFF</title>
-
 <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 </head>
 <body>
@@ -15,21 +14,31 @@ liff.init({
   withLoginOnExternalBrowser: true
 })
 .then(() => {
-  /* ログインしていなければログイン */
-  if (!liff.isLoggedIn()) { liff.login(); return; }
-  return liff.getProfile();          /* ← ここで profile を返す */
+  /* 未ログインならログイン後にページが再読み込みされる */
+  if (!liff.isLoggedIn()) {
+    liff.login();
+    return Promise.reject('login');   // ← 次の then をスキップ
+  }
+  /* ログイン済みならプロフィール取得 */
+  return liff.getProfile();
 })
 .then(profile => {
-  const uid = profile.userId || 'unknown';
-  document.getElementById('uidView').textContent = 'UID: ' + uid;
+  if (!profile) return;              // login 直後の呼び出しは無視
 
-  /* フォーム URL ─ 1つ目は ?entry ─ */
+  const uid = profile.userId || 'unknown';
+
+  /* フォーム URL を組み立てる */
   const t = (new URLSearchParams(location.search)).get('type') || 'post';
   const formURL =
     'https://docs.google.com/forms/d/e/1FAIpQLScGeCK-wnDDnM3EJ1KSlbWgr-zrdiVuasGMjRvjl1kSAuXT5w/viewform' +
-    '?entry.357089518=' + uid +          /* uid 用 entry 番号 */
-    '&entry.1964922167=' + t;            /* type 用 entry 番号 */
-  location.href = formURL;
+    '?entry.357089518=' + uid +        /* uid 用 entry 番号 */
+    '&entry.1964922167=' + t;          /* type 用 entry 番号 */
+
+  location.href = formURL;            // フォームへ転送
+})
+.catch(err => {
+  /* console.log 用エラーハンドリング（任意）*/
+  if (err !== 'login') console.log('LIFF error:', err);
 });
 </script>
 </body>
