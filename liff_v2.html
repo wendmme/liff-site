@@ -17,9 +17,9 @@
 
 <script>
 /* ① ページ読込 */
-/* document.body.insertAdjacentHTML(
+document.body.insertAdjacentHTML(
   'beforeend','<p class="debug">① 読み込まれた</p>'
-); */
+);
 
 liff.init({
   liffId: '2007865582-nJ0DMwPM',
@@ -27,9 +27,9 @@ liff.init({
 })
 .then(() => {
   /* ② isLoggedIn を表示 */
-  /*  document.body.insertAdjacentHTML(
+  document.body.insertAdjacentHTML(
     'beforeend','<p class="debug">② loggedIn = '+liff.isLoggedIn()+'</p>'
-  ); */
+  );
 
   /* ログインしていなければログイン */
   if (!liff.isLoggedIn()) { liff.login(); return; }
@@ -37,9 +37,9 @@ liff.init({
 })
 .then(profile => {
   /* ③ userId を青文字で表示 */
-   /* document.body.insertAdjacentHTML(
+  document.body.insertAdjacentHTML(
     'beforeend','<p class="debug">③ userId = '+(profile.userId || 'なし')+'</p>'
-  ); */
+  );
 
   const uid = profile.userId || 'unknown';
   document.getElementById('uidView').textContent = 'UID: ' + uid;
@@ -52,10 +52,9 @@ liff.init({
     '&entry.1964922167=' + t;            /* type 用 entry 番号 */
 
 /* ★ 10 秒待ってからフォームへ転送 */
-/* setTimeout(() => { location.href = formURL; }, 10000);
-}); */
+setTimeout(() => { location.href = formURL; }, 10000);
+});
 </script>
 </body>
 </html>
-
 
