@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>サイト診断 LIFF</title>
+
+<!-- 青いデバッグ文字 -->
+<style>
+  .debug {font-size:14px;color:#0066ff;margin:4px 0;}
+</style>
+
+<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+</head>
+<body>
+<p>診断フォームへリダイレクト中…</p>
+<p id="uidView" style="color:red;font-weight:bold;"></p>
+
+<script>
+liff.init({
+  liffId: '2007865582-nJ0DMwPM',
+  withLoginOnExternalBrowser: true
+})
+.then(() => {
+  /* ログインしていなければログイン */
+  if (!liff.isLoggedIn()) { liff.login(); return; }
+  return liff.getProfile();          /* ← ここで profile を返す */
+})
+.then(profile => {
+  const uid = profile.userId || 'unknown';
+  document.getElementById('uidView').textContent = 'UID: ' + uid;
+
+  /* フォーム URL ─ 1つ目は ?entry ─ */
+  const t = (new URLSearchParams(location.search)).get('type') || 'post';
+  const formURL =
+    'https://docs.google.com/forms/d/e/1FAIpQLScGeCK-wnDDnM3EJ1KSlbWgr-zrdiVuasGMjRvjl1kSAuXT5w/viewform' +
+    '?entry.357089518=' + uid +          /* uid 用 entry 番号 */
+    '&entry.1964922167=' + t;            /* type 用 entry 番号 */
+});
+</script>
+</body>
+</html>
