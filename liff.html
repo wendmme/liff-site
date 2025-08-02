@@ -51,13 +51,12 @@ liff.init({
     '?entry.357089518=' + uid +          /* uid 用 entry 番号 */
     '&entry.1964922167=' + t;            /* type 用 entry 番号 */
 
-  // ★ 5秒だけ待ってからフォームへ飛ぶ
-setTimeout(() => {
-  location.href = formURL;
-}, 10000);     // 5000ミリ秒 = 5秒
+/* ★ 10 秒待ってからフォームへ転送 */
+setTimeout(() => { location.href = formURL; }, 10000);
 });
 </script>
 </body>
 </html>
+
 
 
