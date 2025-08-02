@@ -34,7 +34,7 @@ liff.init({          // ← https:// は付けない
   const params  = new URLSearchParams(location.search);
   const t       = params.get('type') || 'post';      // ?type=pre で切替
   const formURL = 'https://docs.google.com/forms/d/e/1FAIpQLScGeCK-wnDDnM3EJ1KSlbWgr-zrdiVuasGMjRvjl1kSAuXT5w/viewform' +
-                  '?entry.357089518=' + uid +        // ← uid 列の entry 番号
+                  '&entry.357089518=' + uid +        // ← uid 列の entry 番号
                   '&entry.1964922167=' + t;          // ← type 列の entry 番号
   /* ------------------------------------------------ */
 
@@ -43,6 +43,7 @@ liff.init({          // ← https:// は付けない
 </script>
 </body>
 </html>
+
 
 
 
